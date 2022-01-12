@@ -52,27 +52,26 @@ struct board : View {
     }
 }
 
-struct ContentView: View {
-    @State var matrix:[[Int]] = [
-        [-1, -1, -1, -1],
-        [-1, -1, -1, -1],
-        [-1, -1, -1, -1],
-        [-1, -1, -1, -1]
-    ]
-    @State var turn = 0;
+struct OthelloGameView: View {
+    @State var game: OthelloGameManager
     
     var body: some View {
         VStack {
             Text("Othello")
+                .bold()
                 .padding()
                 .aspectRatio(contentMode: .fit)
-            board(matrix: $matrix, turn: $turn);
+                .onTapGesture {
+                    print(game.matrix)
+                }
+            board(matrix: $game.matrix, turn: $game.turn);
         }.frame(minWidth: 300, maxWidth: 800, minHeight: 300, maxHeight: 800, alignment: .center)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct OthelloGameViewPreview: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        let game = OthelloGameManager(dimension: 6)
+        OthelloGameView(game: game)
     }
 }

@@ -8,10 +8,11 @@
 import SwiftUI
 
 @main
-struct othelloApp: App {
+struct OthelloApp: App {
     var body: some Scene {
+        let game = OthelloGameManager(dimension: 6)
         WindowGroup {
-            ContentView()
+            OthelloGameView(game: game)
         }
     }
 }

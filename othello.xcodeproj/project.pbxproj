@@ -7,14 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A40B0D0D278E8966003B4FBE /* othello_game_mgmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B0D0C278E8966003B4FBE /* othello_game_mgmt.swift */; };
+		A40B0D0E278E8966003B4FBE /* othello_game_mgmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B0D0C278E8966003B4FBE /* othello_game_mgmt.swift */; };
 		A4DC985A278E18BC00F21DB8 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC9859278E18BC00F21DB8 /* Tests_iOS.swift */; };
 		A4DC985C278E18BC00F21DB8 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC985B278E18BC00F21DB8 /* Tests_iOSLaunchTests.swift */; };
 		A4DC9866278E18BC00F21DB8 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC9865278E18BC00F21DB8 /* Tests_macOS.swift */; };
 		A4DC9868278E18BC00F21DB8 /* Tests_macOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC9867278E18BC00F21DB8 /* Tests_macOSLaunchTests.swift */; };
-		A4DC9869278E18BC00F21DB8 /* othelloApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC9841278E18B900F21DB8 /* othelloApp.swift */; };
-		A4DC986A278E18BC00F21DB8 /* othelloApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC9841278E18B900F21DB8 /* othelloApp.swift */; };
-		A4DC986B278E18BC00F21DB8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC9842278E18B900F21DB8 /* ContentView.swift */; };
-		A4DC986C278E18BC00F21DB8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC9842278E18B900F21DB8 /* ContentView.swift */; };
+		A4DC9869278E18BC00F21DB8 /* othello_app.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC9841278E18B900F21DB8 /* othello_app.swift */; };
+		A4DC986A278E18BC00F21DB8 /* othello_app.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC9841278E18B900F21DB8 /* othello_app.swift */; };
+		A4DC986B278E18BC00F21DB8 /* othello_view.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC9842278E18B900F21DB8 /* othello_view.swift */; };
+		A4DC986C278E18BC00F21DB8 /* othello_view.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC9842278E18B900F21DB8 /* othello_view.swift */; };
 		A4DC986D278E18BC00F21DB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4DC9843278E18BC00F21DB8 /* Assets.xcassets */; };
 		A4DC986E278E18BC00F21DB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4DC9843278E18BC00F21DB8 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -37,8 +39,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A4DC9841278E18B900F21DB8 /* othelloApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = othelloApp.swift; sourceTree = "<group>"; };
-		A4DC9842278E18B900F21DB8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A40B0D0C278E8966003B4FBE /* othello_game_mgmt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = othello_game_mgmt.swift; sourceTree = "<group>"; };
+		A4DC9841278E18B900F21DB8 /* othello_app.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = othello_app.swift; sourceTree = "<group>"; };
+		A4DC9842278E18B900F21DB8 /* othello_view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = othello_view.swift; sourceTree = "<group>"; };
 		A4DC9843278E18BC00F21DB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4DC9848278E18BC00F21DB8 /* othello.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = othello.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4DC984E278E18BC00F21DB8 /* othello.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = othello.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,9 +100,10 @@
 		A4DC9840278E18B900F21DB8 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				A4DC9841278E18B900F21DB8 /* othelloApp.swift */,
-				A4DC9842278E18B900F21DB8 /* ContentView.swift */,
+				A4DC9841278E18B900F21DB8 /* othello_app.swift */,
+				A4DC9842278E18B900F21DB8 /* othello_view.swift */,
 				A4DC9843278E18BC00F21DB8 /* Assets.xcassets */,
+				A40B0D0C278E8966003B4FBE /* othello_game_mgmt.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -299,8 +303,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4DC986B278E18BC00F21DB8 /* ContentView.swift in Sources */,
-				A4DC9869278E18BC00F21DB8 /* othelloApp.swift in Sources */,
+				A4DC986B278E18BC00F21DB8 /* othello_view.swift in Sources */,
+				A4DC9869278E18BC00F21DB8 /* othello_app.swift in Sources */,
+				A40B0D0D278E8966003B4FBE /* othello_game_mgmt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,8 +313,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4DC986C278E18BC00F21DB8 /* ContentView.swift in Sources */,
-				A4DC986A278E18BC00F21DB8 /* othelloApp.swift in Sources */,
+				A4DC986C278E18BC00F21DB8 /* othello_view.swift in Sources */,
+				A4DC986A278E18BC00F21DB8 /* othello_app.swift in Sources */,
+				A40B0D0E278E8966003B4FBE /* othello_game_mgmt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
