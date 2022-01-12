@@ -8,43 +8,28 @@
 import SwiftUI
 
 struct GridStack<Content: View>: View {
-    let rows: Int
-    let columns: Int
-    let content: (Int, Int) -> Content
+    @Binding var matrix: [[Int]]
+    var content: (Int, Int) -> Content
 
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(0 ..< rows, id: \.self) { row in
+            ForEach(0 ..< matrix.count, id: \.self) { row in
                 HStack(spacing: 0) {
-                    ForEach(0 ..< columns, id: \.self) { column in
+                    ForEach(0 ..< matrix[0].count, id: \.self) { column in
                         content(row, column)
                     }
                 }
             }
         }
     }
-
-    init(rows: Int, columns: Int, @ViewBuilder content: @escaping (Int, Int) -> Content) {
-        self.rows = rows
-        self.columns = columns
-        self.content = content
-    }
 }
 
-struct ContentView: View {
-    var matrix:[[Int]] = [
-        [0, 1, 0, 1],
-        [1, 1, 0, 1],
-        [1, 0, 0, 0],
-        [0, 1, 1, 0]
-    ]
-    
+struct board : View {
+    @Binding var matrix: [[Int]]
+
     var body: some View {
-        VStack {
-            Text("Othello")
-                .padding()
-                .aspectRatio(contentMode: .fit)
-            GridStack(rows: matrix.count, columns: matrix[0].count) { row, col in
+        VStack(spacing: 0) {
+            GridStack(matrix: $matrix) { row, col in
                 ZStack {
                     Rectangle()
                         .fill(Color.green)
@@ -56,6 +41,27 @@ struct ContentView: View {
                     Text("Row\(row) Col\(col)")
                 }
             }.padding([.leading, .bottom, .trailing])
+        }
+    }
+}
+
+struct ContentView: View {
+    @State var matrix:[[Int]] = [
+        [0, 1, 0, 1],
+        [1, 1, 0, 1],
+        [1, 0, 0, 0],
+        [0, 1, 1, 0]
+    ]
+    
+    var body: some View {
+        VStack {
+            Text("Othello")
+                .padding()
+                .aspectRatio(contentMode: .fit)
+            board(matrix: $matrix);
+            Button("button") {
+                matrix[0][0] = 1 - matrix[0][0]
+            }
         }.frame(minWidth: 300, maxWidth: 800, minHeight: 300, maxHeight: 800, alignment: .center)
     }
 }
