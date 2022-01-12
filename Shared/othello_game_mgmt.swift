@@ -9,19 +9,114 @@ import Foundation
 
 struct OthelloGameManager {
     var dimension: Int
-    var matrix: Array<Array<Int>>
-    var turn = 0;
+    var matrix: [[Int]]
+    var turn: Int = 0
+    var possible_moves: [(Int, Int)] = []
+    var end: Bool = false
     
     init(dimension: Int) {
         self.dimension = dimension
         self.matrix = Array<Array<Int>>(repeating: Array<Int>(repeating: -1, count: self.dimension), count: dimension)
+        let i = self.dimension / 2 - 1
+        let j = self.dimension / 2 - 1
+        self.matrix[i][j] = 1
+        self.matrix[i + 1][j + 1] = 1
+        self.matrix[i + 1][j] = 0
+        self.matrix[i][j + 1] = 0
+        self.possible_moves = get_possible_moves()
     }
     
-    func find_line(i: Int, j: Int, turn: Int) {
-        
+    func get_possible_moves() -> [(Int, Int)] {
+        var result: [(Int, Int)] = []
+        for i in 0..<matrix.count {
+            for j in 0..<matrix.count {
+                if matrix[i][j] == -1 {
+                    let lines: [[(Int, Int)]] = find_lines(i: i, j: j)
+                    if lines.count > 0 {
+                        result.append((i, j))
+                    }
+                }
+            }
+        }
+        return result
     }
     
-    func play_move(i: Int, j: Int, turn: Int) {
-        
+    func find_lines(i: Int, j: Int) -> [[(Int, Int)]]{
+        var lines: [[(Int, Int)]] = []
+        for (xdir, ydir) in [(0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1),
+                    (-1, 0), (-1, 1)] {
+            var u = i + xdir
+            var v = j + ydir
+            var line: [(Int, Int)] = []
+            var found = false
+            
+            while u >= 0 && u < matrix.count && v >= 0 && v < matrix.count {
+                if matrix[u][v] == -1 {
+                    break
+                } else if matrix[u][v] == turn{
+                    found = true
+                    break
+                } else {
+                    line.append((u, v))
+                }
+                u += xdir
+                v += ydir
+            }
+            if found && line.count > 0 {
+                lines.append(line)
+            }
+        }
+        return lines
+    }
+    
+    mutating func exchange_turns() {
+        self.turn = 1 - self.turn
+        self.possible_moves = get_possible_moves()
+        if self.possible_moves.count == 0 {
+            self.end = true
+            let (white_score, black_score): (Int, Int) = get_current_score()
+            print("game over", white_score > black_score ? "white wins" : "black wins")
+        }
+    }
+    
+    func get_current_score() -> (Int, Int){
+        var white_score: Int = 0
+        var black_score: Int = 0
+        for i in 0..<matrix.count {
+            for j in 0..<matrix.count {
+                if matrix[i][j] == 0 {
+                    white_score += 1
+                } else if (matrix[i][j] == 1) {
+                    black_score += 1
+                }
+            }
+        }
+        return (white_score, black_score)
+    }
+    
+    func valid_move(i: Int, j: Int) -> Bool {
+        return self.possible_moves.contains(where: { (x, y) in
+            return x == i && y == j
+        })
+    }
+    
+    mutating func play_move(i: Int, j: Int) {
+        if !valid_move(i: i, j: j) {
+            if !self.end {
+                print("Invalid Move")
+            }
+            return
+        }
+        print(self.turn == 0 ? "white" : "black", "takes move at (\(i), \(j))")
+        let lines: [[(Int, Int)]] = find_lines(i: i, j: j)
+        matrix[i][j] = turn
+        for line in lines {
+            for (u, v) in line {
+                matrix[u][v] = turn
+            }
+        }
+        let (white_score, black_score): (Int, Int) = get_current_score()
+        print("Score: white \(white_score) : black \(black_score)")
+        exchange_turns()
     }
 }
