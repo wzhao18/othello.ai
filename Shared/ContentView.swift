@@ -26,6 +26,7 @@ struct GridStack<Content: View>: View {
 
 struct board : View {
     @Binding var matrix: [[Int]]
+    @Binding var turn: Int
 
     var body: some View {
         VStack(spacing: 0) {
@@ -34,11 +35,17 @@ struct board : View {
                     Rectangle()
                         .fill(Color.green)
                         .aspectRatio(1.0, contentMode: .fit)
-                        .border(Color.purple)
-                    Circle()
-                        .fill(matrix[row][col] == 0 ? Color.yellow : Color.white)
-                        .aspectRatio(0.8, contentMode: .fit)
-                    Text("Row\(row) Col\(col)")
+                        .border(Color.gray)
+                    if matrix[row][col] != -1 {
+                        Circle()
+                            .fill(matrix[row][col] == 1 ? Color.black : Color.white)
+                            .aspectRatio(0.8, contentMode: .fit)
+                    }
+                }.onTapGesture {
+                    if matrix[row][col] == -1 {
+                        matrix[row][col] = turn
+                        turn = 1 - turn
+                    }
                 }
             }.padding([.leading, .bottom, .trailing])
         }
@@ -47,21 +54,19 @@ struct board : View {
 
 struct ContentView: View {
     @State var matrix:[[Int]] = [
-        [0, 1, 0, 1],
-        [1, 1, 0, 1],
-        [1, 0, 0, 0],
-        [0, 1, 1, 0]
+        [-1, -1, -1, -1],
+        [-1, -1, -1, -1],
+        [-1, -1, -1, -1],
+        [-1, -1, -1, -1]
     ]
+    @State var turn = 0;
     
     var body: some View {
         VStack {
             Text("Othello")
                 .padding()
                 .aspectRatio(contentMode: .fit)
-            board(matrix: $matrix);
-            Button("button") {
-                matrix[0][0] = 1 - matrix[0][0]
-            }
+            board(matrix: $matrix, turn: $turn);
         }.frame(minWidth: 300, maxWidth: 800, minHeight: 300, maxHeight: 800, alignment: .center)
     }
 }
