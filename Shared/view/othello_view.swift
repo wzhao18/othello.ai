@@ -25,7 +25,7 @@ struct GridStack<Content: View>: View {
 }
 
 struct board : View {
-    @Binding var game: OthelloGameManager
+    @ObservedObject var game: OthelloGameManager
 
     var body: some View {
         VStack(spacing: 0) {
@@ -37,7 +37,7 @@ struct board : View {
                         .border(Color.gray)
                     if game.matrix[row][col] != -1 {
                         Circle()
-                            .fill(game.matrix[row][col] == 1 ? Color.black : Color.white)
+                            .fill(game.matrix[row][col] == 0 ? Color.white : Color.black)
                             .aspectRatio(0.8, contentMode: .fit)
                     }
                 }.onTapGesture {
@@ -49,7 +49,7 @@ struct board : View {
 }
 
 struct OthelloGameView: View {
-    @State var game: OthelloGameManager
+    @ObservedObject var game: OthelloGameManager
     
     var body: some View {
         VStack {
@@ -60,14 +60,14 @@ struct OthelloGameView: View {
                 .onTapGesture {
                     print(game.matrix)
                 }
-            board(game: $game);
+            board(game: game);
         }.frame(minWidth: 300, maxWidth: 800, minHeight: 300, maxHeight: 800, alignment: .center)
     }
 }
 
 struct OthelloGameViewPreview: PreviewProvider {
     static var previews: some View {
-        let game = OthelloGameManager(dimension: 6)
+        let game = OthelloGameManager(dimension: 6, num_players: 2)
         OthelloGameView(game: game)
     }
 }

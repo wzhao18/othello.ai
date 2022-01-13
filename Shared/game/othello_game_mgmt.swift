@@ -7,15 +7,19 @@
 
 import Foundation
 
-struct OthelloGameManager {
-    var dimension: Int
-    var matrix: [[Int]]
-    var turn: Int = 0
+@MainActor class OthelloGameManager : ObservableObject{
+    var dimension: Int = 0
+    var num_players: Int = 0
+    @Published var turn: Int = 0
+    @Published var matrix: [[Int]] = []
     var possible_moves: [(Int, Int)] = []
     var end: Bool = false
+    var ai_agents: [OthelloAIAgent] = []
     
-    init(dimension: Int) {
+    init(dimension: Int, num_players: Int) {
         self.dimension = dimension
+        self.num_players = num_players
+        self.turn = 1
         self.matrix = Array<Array<Int>>(repeating: Array<Int>(repeating: -1, count: self.dimension), count: dimension)
         let i = self.dimension / 2 - 1
         let j = self.dimension / 2 - 1
@@ -23,15 +27,20 @@ struct OthelloGameManager {
         self.matrix[i + 1][j + 1] = 1
         self.matrix[i + 1][j] = 0
         self.matrix[i][j + 1] = 0
-        self.possible_moves = get_possible_moves()
+        self.possible_moves = get_possible_moves(turn: self.turn)
+        for i in 0..<(2-self.num_players) {
+            let ai_agent = OthelloAIAgent(agent_id: i, game: self)
+            self.ai_agents.append(ai_agent)
+            ai_agent.start()
+        }
     }
     
-    func get_possible_moves() -> [(Int, Int)] {
+    func get_possible_moves(turn: Int) -> [(Int, Int)] {
         var result: [(Int, Int)] = []
         for i in 0..<matrix.count {
             for j in 0..<matrix.count {
                 if matrix[i][j] == -1 {
-                    let lines: [[(Int, Int)]] = find_lines(i: i, j: j)
+                    let lines: [[(Int, Int)]] = find_lines(i: i, j: j, turn: turn)
                     if lines.count > 0 {
                         result.append((i, j))
                     }
@@ -41,7 +50,7 @@ struct OthelloGameManager {
         return result
     }
     
-    func find_lines(i: Int, j: Int) -> [[(Int, Int)]]{
+    func find_lines(i: Int, j: Int, turn: Int) -> [[(Int, Int)]]{
         var lines: [[(Int, Int)]] = []
         for (xdir, ydir) in [(0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1),
                     (-1, 0), (-1, 1)] {
@@ -69,14 +78,15 @@ struct OthelloGameManager {
         return lines
     }
     
-    mutating func exchange_turns() {
-        self.turn = 1 - self.turn
-        self.possible_moves = get_possible_moves()
+    func exchange_turns() {
+        self.possible_moves = get_possible_moves(turn: 1 - self.turn)
         if self.possible_moves.count == 0 {
             self.end = true
             let (white_score, black_score): (Int, Int) = get_current_score()
             print("game over", white_score > black_score ? "white wins" : "black wins")
         }
+        self.turn = 1 - self.turn
+        print(self.turn)
     }
     
     func get_current_score() -> (Int, Int){
@@ -100,7 +110,7 @@ struct OthelloGameManager {
         })
     }
     
-    mutating func play_move(i: Int, j: Int) {
+    func play_move(i: Int, j: Int) {
         if !valid_move(i: i, j: j) {
             if !self.end {
                 print("Invalid Move")
@@ -108,7 +118,7 @@ struct OthelloGameManager {
             return
         }
         print(self.turn == 0 ? "white" : "black", "takes move at (\(i), \(j))")
-        let lines: [[(Int, Int)]] = find_lines(i: i, j: j)
+        let lines: [[(Int, Int)]] = find_lines(i: i, j: j, turn: self.turn)
         matrix[i][j] = turn
         for line in lines {
             for (u, v) in line {
