@@ -16,10 +16,7 @@ import Foundation
     var end: Bool = false
     var ai_agents: [OthelloAIAgent] = []
     
-    init(dimension: Int, num_players: Int) {
-        self.dimension = dimension
-        self.num_players = num_players
-        self.turn = 1
+    func init_board () {
         self.matrix = Array<Array<Int>>(repeating: Array<Int>(repeating: -1, count: self.dimension), count: dimension)
         let i = self.dimension / 2 - 1
         let j = self.dimension / 2 - 1
@@ -27,7 +24,19 @@ import Foundation
         self.matrix[i + 1][j + 1] = 1
         self.matrix[i + 1][j] = 0
         self.matrix[i][j + 1] = 0
+    }
+    
+    func reset() {
+        self.turn = 1
+        self.init_board()
         self.possible_moves = get_possible_moves(turn: self.turn)
+        self.end = false
+    }
+    
+    init(dimension: Int, num_players: Int) {
+        self.dimension = dimension
+        self.num_players = num_players
+        self.reset()
         for i in 0..<(2-self.num_players) {
             let ai_agent = OthelloAIAgent(agent_id: i, game: self)
             self.ai_agents.append(ai_agent)
@@ -86,7 +95,6 @@ import Foundation
             print("game over", white_score > black_score ? "white wins" : "black wins")
         }
         self.turn = 1 - self.turn
-        print(self.turn)
     }
     
     func get_current_score() -> (Int, Int){
