@@ -12,6 +12,19 @@ class OthelloAIAgent {
     var game: OthelloGameManager! = nil
     var thread: Thread! = nil
     
+    @objc func play() async {
+        print("Starting play loop")
+        while (true) {
+            if await !self.game.end {
+                if await self.game.turn == self.agent_id {
+                    let (i, j): (Int, Int) = await self.choose_move()
+                    await self.game.play_move(i: i, j: j)
+                }
+            }
+            await self.sleep(seconds: 0.1)
+        }
+    }
+    
     init(agent_id: Int, game: OthelloGameManager) {
         self.agent_id = agent_id
         self.game = game
@@ -23,30 +36,24 @@ class OthelloAIAgent {
         self.thread.start()
     }
     
-    @objc func play() async
-    {
-        print("Starting play loop")
-        while (true) {
-            if await !self.game.end {
-                if await self.game.turn == self.agent_id {
-                    let possible_moves: [(Int, Int)] = await self.game.possible_moves
-                    if possible_moves.count > 0 {
-                        let random_move: (Int, Int) = choose_random_move(moves: possible_moves)
-                        let (i, j): (Int, Int) = random_move
-                        await self.game.play_move(i: i, j: j)
-                    }
-                }
-            }
-            do {
-                try await Task.sleep(nanoseconds: 100000000)
-            }
-            catch {
-                print(error)
-            }
+    func sleep(seconds: Double) async{
+        do {
+            try await Task.sleep(nanoseconds: UInt64(seconds * 1000000000))
+        }
+        catch {
+            print(error)
         }
     }
     
-    func choose_random_move(moves: [(Int, Int)]) -> (Int, Int) {
-        return moves.randomElement()!
+    func choose_move() async -> (Int, Int) {
+        fatalError("Unimplemented")
+    }
+}
+
+
+class RandyAgent : OthelloAIAgent {
+    override func choose_move() async -> (Int, Int) {
+        let possible_moves: [(Int, Int)] = await self.game.possible_moves
+        return possible_moves.randomElement()!
     }
 }

@@ -38,7 +38,7 @@ import Foundation
         self.num_players = num_players
         self.reset()
         for i in 0..<(2-self.num_players) {
-            let ai_agent = OthelloAIAgent(agent_id: i, game: self)
+            let ai_agent = RandyAgent(agent_id: i, game: self)
             self.ai_agents.append(ai_agent)
             ai_agent.start()
         }

@@ -11,6 +11,8 @@
 		A40B0D0E278E8966003B4FBE /* othello_game_mgmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B0D0C278E8966003B4FBE /* othello_game_mgmt.swift */; };
 		A40B0D13278F8CD9003B4FBE /* ai_agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B0D12278F8CD9003B4FBE /* ai_agent.swift */; };
 		A40B0D14278F8CD9003B4FBE /* ai_agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B0D12278F8CD9003B4FBE /* ai_agent.swift */; };
+		A4B154F12790DCDF0033A614 /* delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B154F02790DCDF0033A614 /* delegate.swift */; };
+		A4B154F22790DCE40033A614 /* delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B154F02790DCDF0033A614 /* delegate.swift */; };
 		A4DC985A278E18BC00F21DB8 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC9859278E18BC00F21DB8 /* Tests_iOS.swift */; };
 		A4DC985C278E18BC00F21DB8 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC985B278E18BC00F21DB8 /* Tests_iOSLaunchTests.swift */; };
 		A4DC9866278E18BC00F21DB8 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC9865278E18BC00F21DB8 /* Tests_macOS.swift */; };
@@ -43,6 +45,7 @@
 /* Begin PBXFileReference section */
 		A40B0D0C278E8966003B4FBE /* othello_game_mgmt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = othello_game_mgmt.swift; sourceTree = "<group>"; };
 		A40B0D12278F8CD9003B4FBE /* ai_agent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ai_agent.swift; sourceTree = "<group>"; };
+		A4B154F02790DCDF0033A614 /* delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = delegate.swift; sourceTree = "<group>"; };
 		A4DC9841278E18B900F21DB8 /* othello_app.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = othello_app.swift; sourceTree = "<group>"; };
 		A4DC9842278E18B900F21DB8 /* othello_view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = othello_view.swift; sourceTree = "<group>"; };
 		A4DC9843278E18BC00F21DB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -113,6 +116,14 @@
 			path = ai;
 			sourceTree = "<group>";
 		};
+		A4B154EF2790DCC40033A614 /* delegate */ = {
+			isa = PBXGroup;
+			children = (
+				A4B154F02790DCDF0033A614 /* delegate.swift */,
+			);
+			path = delegate;
+			sourceTree = "<group>";
+		};
 		A4DC983B278E18B900F21DB8 = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +138,7 @@
 		A4DC9840278E18B900F21DB8 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				A4B154EF2790DCC40033A614 /* delegate */,
 				A40B0D11278F8C9D003B4FBE /* ai */,
 				A40B0D10278F8C66003B4FBE /* game */,
 				A40B0D0F278F8C24003B4FBE /* view */,
@@ -332,6 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4DC986B278E18BC00F21DB8 /* othello_view.swift in Sources */,
+				A4B154F12790DCDF0033A614 /* delegate.swift in Sources */,
 				A40B0D13278F8CD9003B4FBE /* ai_agent.swift in Sources */,
 				A4DC9869278E18BC00F21DB8 /* othello_app.swift in Sources */,
 				A40B0D0D278E8966003B4FBE /* othello_game_mgmt.swift in Sources */,
@@ -343,6 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4DC986C278E18BC00F21DB8 /* othello_view.swift in Sources */,
+				A4B154F22790DCE40033A614 /* delegate.swift in Sources */,
 				A40B0D14278F8CD9003B4FBE /* ai_agent.swift in Sources */,
 				A4DC986A278E18BC00F21DB8 /* othello_app.swift in Sources */,
 				A40B0D0E278E8966003B4FBE /* othello_game_mgmt.swift in Sources */,
