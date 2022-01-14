@@ -13,7 +13,7 @@ import Foundation
     @Published var turn: Int = 0
     @Published var matrix: [[Int]] = []
     var possible_moves: [(Int, Int)] = []
-    var end: Bool = false
+    var end: Bool = true
     var ai_agents: [OthelloAIAgent] = []
     
     func init_board () {
@@ -36,7 +36,7 @@ import Foundation
     init(dimension: Int, num_players: Int) {
         self.dimension = dimension
         self.num_players = num_players
-        self.reset()
+        self.matrix = Array<Array<Int>>(repeating: Array<Int>(repeating: -1, count: self.dimension), count: dimension)
         for i in 0..<(2-self.num_players) {
             let ai_agent = RandyAgent(agent_id: i, game: self)
             self.ai_agents.append(ai_agent)

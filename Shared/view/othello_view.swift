@@ -61,9 +61,11 @@ struct OthelloGameView: View {
                     print(game.matrix)
                 }
             board(game: game);
-            Button("reset") {
-                game.reset()
-            }.padding(.all)
+            HStack {
+                Button("start") {
+                    game.reset()
+                }.padding(.all)
+            }
         }.frame(minWidth: 300, maxWidth: 500, minHeight: 300, maxHeight: 500, alignment: .center)
     }
 }
