@@ -11,7 +11,7 @@ import SwiftUI
 struct OthelloApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var body: some Scene {
-        let game = OthelloGameManager(dimension: 10, num_players: 0)
+        let game = OthelloGameManager(dimension: 4, num_players: 0)
         WindowGroup {
             OthelloGameView(game: game)
         }
