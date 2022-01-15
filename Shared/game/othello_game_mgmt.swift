@@ -38,7 +38,7 @@ import Foundation
         self.num_players = num_players
         self.init_board()
         for i in 0..<(2-self.num_players) {
-            let ai_agent = AlphabetaAgent(agent_id: i, game: self)
+            let ai_agent = AlphabetaAgent(agent_id: i, game: self, limit: 1000)
             self.ai_agents.append(ai_agent)
             ai_agent.start()
         }
