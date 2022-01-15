@@ -26,11 +26,14 @@ class OthelloAIAgent {
         while (true) {
             if await !self.game.end {
                 if await self.game.turn == self.agent_id {
+                    let start = CFAbsoluteTimeGetCurrent()
                     let (i, j): (Int, Int) = await self.choose_move()
+                    let diff = CFAbsoluteTimeGetCurrent() - start
+                    print(self.agent_id == 0 ? "white" : "black", "takes move at (\(i), \(j)), choosing move takes \(diff) seconds")
                     await self.game.play_move(i: i, j: j)
                 }
             }
-            await self.sleep(seconds: 3)
+            await self.sleep(seconds: 0.1)
         }
     }
     

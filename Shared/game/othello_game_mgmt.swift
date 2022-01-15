@@ -27,7 +27,7 @@ import Foundation
     }
     
     func reset() {
-        self.turn = 0
+        self.turn = 1
         self.init_board()
         self.possible_moves = get_possible_moves(board: self.matrix, turn: self.turn)
         self.end = false
@@ -38,7 +38,7 @@ import Foundation
         self.num_players = num_players
         self.init_board()
         for i in 0..<(2-self.num_players) {
-            let ai_agent = MinimaxAgent(agent_id: i, game: self)
+            let ai_agent = AlphabetaAgent(agent_id: i, game: self)
             self.ai_agents.append(ai_agent)
             ai_agent.start()
         }
@@ -137,7 +137,6 @@ import Foundation
             }
             return
         }
-        print(self.turn == 0 ? "white" : "black", "takes move at (\(i), \(j))")
         self.matrix = get_matrix_after_play_move(board: self.matrix, i: i, j: j, turn: self.turn)
         let (white_score, black_score): (Int, Int) = get_board_score(board: self.matrix)
         print("Score: white \(white_score) : black \(black_score)")
