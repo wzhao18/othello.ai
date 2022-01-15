@@ -72,7 +72,7 @@ struct OthelloGameView: View {
 
 struct OthelloGameViewPreview: PreviewProvider {
     static var previews: some View {
-        let game = OthelloGameManager(dimension: 6, num_players: 2)
+        let game = OthelloGameManager(dimension: 6)
         OthelloGameView(game: game)
     }
 }

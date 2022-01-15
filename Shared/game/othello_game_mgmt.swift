@@ -9,12 +9,10 @@ import Foundation
 
 @MainActor class OthelloGameManager : ObservableObject{
     var dimension: Int = 0
-    var num_players: Int = 0
     @Published var turn: Int = 0
     @Published var matrix: [[Int]] = []
     var possible_moves: [(Int, Int)] = []
     var end: Bool = true
-    var ai_agents: [OthelloAIAgent] = []
     
     func init_board () {
         self.matrix = Array<Array<Int>>(repeating: Array<Int>(repeating: -1, count: self.dimension), count: dimension)
@@ -27,21 +25,15 @@ import Foundation
     }
     
     func reset() {
-        self.turn = 1
+        self.turn = 0
         self.init_board()
         self.possible_moves = get_possible_moves(board: self.matrix, turn: self.turn)
         self.end = false
     }
     
-    init(dimension: Int, num_players: Int) {
+    init(dimension: Int) {
         self.dimension = dimension
-        self.num_players = num_players
         self.init_board()
-        for i in 0..<(2-self.num_players) {
-            let ai_agent = AlphabetaAgent(agent_id: i, game: self, limit: 1000)
-            self.ai_agents.append(ai_agent)
-            ai_agent.start()
-        }
     }
     
     func get_possible_moves(board: [[Int]], turn: Int) -> [(Int, Int)] {
