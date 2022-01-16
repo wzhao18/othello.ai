@@ -24,6 +24,10 @@ class AlphabetaAgent : OthelloAIAgent {
         var final_move = await self.game.possible_moves.randomElement()!
         var remain_time = self.timeout - (CFAbsoluteTimeGetCurrent() - start)
         while remain_time > 0 {
+            if await limit > self.game.dimension * self.game.dimension {
+                break
+            }
+            
             let ((move, _), reach_leaf_flag) = await alphabeta_selection(board: self.game.matrix, run_max: true, alpha: Int.min, beta: Int.max, limit: limit, timeout: remain_time)
             if move == MAGICAL_TIMED_OUT_MOVE {
                 print("Failed to explore limit \(limit) - returning move")
@@ -47,8 +51,7 @@ class AlphabetaAgent : OthelloAIAgent {
         if cache.keys.contains(board.description) {
             let (result, cache_limit) = cache[board.description]!
             if limit <= cache_limit {
-                let reach_leaf_flag = cache_limit == Int.max
-                return (result, reach_leaf_flag)
+                return (result, cache_limit == Int.max)
             }
         }
         
@@ -77,7 +80,6 @@ class AlphabetaAgent : OthelloAIAgent {
         }
         
         if possible_moves.count == 0{
-            reach_leaf_flag = true
             result = await ((-1, -1), compute_utility_score(board: board))
         } else if limit == 0 {
             return await (((-1, -1), compute_utility_score(board: board)), false)
@@ -104,7 +106,9 @@ class AlphabetaAgent : OthelloAIAgent {
                         best_move = (row, col)
                 }
                 if (run_max && extreme_utility >= beta) || (!run_max && extreme_utility <= alpha) {
-                    return ((best_move, extreme_utility), reach_leaf_flag)
+                    result = (best_move, extreme_utility)
+                    reach_leaf_flag = false
+                    break
                 }
                 if run_max {
                     alpha = max(alpha, extreme_utility)
