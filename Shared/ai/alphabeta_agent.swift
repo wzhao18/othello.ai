@@ -10,6 +10,7 @@ import Foundation
 class AlphabetaAgent : OthelloAIAgent {
     var max_cache: [String : (((Int, Int), Int), Int)] = [:]
     var min_cache: [String : (((Int, Int), Int), Int)] = [:]
+    var heuristic_table: StaticHeuristicTable = StaticHeuristicTable()
     var timeout: Double = Double.infinity
     let MAGICAL_TIMED_OUT_MOVE = (-5, -5)
     
@@ -18,30 +19,53 @@ class AlphabetaAgent : OthelloAIAgent {
         self.timeout = timeout
     }
     
+    override func compute_utility_score(board: [[Int]]) async -> Int {
+        var score_white: Int = 0
+        var score_black: Int = 0
+        
+        for i in 0..<board.count {
+            for j in 0..<board.count {
+                let heuristic_value = await self.heuristic_table.get_heuristic_value(dimension: self.game.dimension, row: i, col: j)
+                if board[i][j] == 0 {
+                    score_white += heuristic_value
+                } else if (board[i][j] == 1) {
+                    score_black += heuristic_value
+                }
+            }
+        }
+        
+        if self.agent_id == 0 {
+            return score_white - score_black
+        } else {
+            return score_black - score_white
+        }
+    }
+    
     override func choose_move() async -> (Int, Int) {
         let start = CFAbsoluteTimeGetCurrent()
         var limit = 1
-        var final_move = await self.game.possible_moves.randomElement()!
+        var best_move = await self.game.possible_moves.randomElement()!
         var remain_time = self.timeout - (CFAbsoluteTimeGetCurrent() - start)
         while remain_time > 0 {
             if await limit > self.game.dimension * self.game.dimension {
+                print("Reaching the highest limit - choosing move \(best_move)")
                 break
             }
             
             let ((move, _), reach_leaf_flag) = await alphabeta_selection(board: self.game.matrix, run_max: true, alpha: Int.min, beta: Int.max, limit: limit, timeout: remain_time)
             if move == MAGICAL_TIMED_OUT_MOVE {
-                print("Failed to explore limit \(limit) - returning move")
-                return final_move
+                print("Failed to explore limit \(limit) - choosing move \(best_move)")
+                return best_move
             } else if reach_leaf_flag {
-                print("Already exploring the leaves of the tree - returning move")
+                print("Already explored the buttom the tree - choosing move \(move) ")
                 return move
             }
             limit += 1
-            final_move = move
+            best_move = move
             remain_time = self.timeout - (CFAbsoluteTimeGetCurrent() - start)
-            print("Finished exploring limit \(limit - 1), remaining time \(remain_time)")
+            print("Finished exploring limit \(limit - 1), remaining time \(remain_time), currently best move is \(best_move)")
         }
-        return final_move
+        return best_move
     }
     
     func alphabeta_selection(board: [[Int]], run_max: Bool, alpha: Int, beta: Int, limit: Int, timeout: Double) async -> (((Int, Int), Int), Bool) {

@@ -19,6 +19,8 @@
 		A4B154FD27914A110033A614 /* minimax_agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B154FB279149620033A614 /* minimax_agent.swift */; };
 		A4B154FF27926D5D0033A614 /* alphabeta_agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B154FE27926D5D0033A614 /* alphabeta_agent.swift */; };
 		A4B1550027926D5D0033A614 /* alphabeta_agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B154FE27926D5D0033A614 /* alphabeta_agent.swift */; };
+		A4B155032793F1FF0033A614 /* static_table.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B155022793F1FF0033A614 /* static_table.swift */; };
+		A4B1550427949C3D0033A614 /* static_table.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B155022793F1FF0033A614 /* static_table.swift */; };
 		A4DC985A278E18BC00F21DB8 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC9859278E18BC00F21DB8 /* Tests_iOS.swift */; };
 		A4DC985C278E18BC00F21DB8 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC985B278E18BC00F21DB8 /* Tests_iOSLaunchTests.swift */; };
 		A4DC9866278E18BC00F21DB8 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC9865278E18BC00F21DB8 /* Tests_macOS.swift */; };
@@ -55,6 +57,7 @@
 		A4B154F82791487D0033A614 /* randy_agent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = randy_agent.swift; sourceTree = "<group>"; };
 		A4B154FB279149620033A614 /* minimax_agent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = minimax_agent.swift; sourceTree = "<group>"; };
 		A4B154FE27926D5D0033A614 /* alphabeta_agent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = alphabeta_agent.swift; sourceTree = "<group>"; };
+		A4B155022793F1FF0033A614 /* static_table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = static_table.swift; sourceTree = "<group>"; };
 		A4DC9841278E18B900F21DB8 /* othello_app.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = othello_app.swift; sourceTree = "<group>"; };
 		A4DC9842278E18B900F21DB8 /* othello_view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = othello_view.swift; sourceTree = "<group>"; };
 		A4DC9843278E18BC00F21DB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -144,6 +147,14 @@
 			path = iOS;
 			sourceTree = "<group>";
 		};
+		A4B155012793F1DA0033A614 /* heuristic */ = {
+			isa = PBXGroup;
+			children = (
+				A4B155022793F1FF0033A614 /* static_table.swift */,
+			);
+			path = heuristic;
+			sourceTree = "<group>";
+		};
 		A4DC983B278E18B900F21DB8 = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +170,7 @@
 		A4DC9840278E18B900F21DB8 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				A4B155012793F1DA0033A614 /* heuristic */,
 				A4B154EF2790DCC40033A614 /* delegate */,
 				A40B0D11278F8C9D003B4FBE /* ai */,
 				A40B0D10278F8C66003B4FBE /* game */,
@@ -368,6 +380,7 @@
 				A4DC986B278E18BC00F21DB8 /* othello_view.swift in Sources */,
 				A4B154FF27926D5D0033A614 /* alphabeta_agent.swift in Sources */,
 				A40B0D13278F8CD9003B4FBE /* ai_agent.swift in Sources */,
+				A4B155032793F1FF0033A614 /* static_table.swift in Sources */,
 				A4B154F92791487D0033A614 /* randy_agent.swift in Sources */,
 				A40B0D0D278E8966003B4FBE /* othello_game_mgmt.swift in Sources */,
 				A4B154FC279149620033A614 /* minimax_agent.swift in Sources */,
@@ -379,6 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4B1550027926D5D0033A614 /* alphabeta_agent.swift in Sources */,
+				A4B1550427949C3D0033A614 /* static_table.swift in Sources */,
 				A4DC986C278E18BC00F21DB8 /* othello_view.swift in Sources */,
 				A4B154F22790DCE40033A614 /* delegate.swift in Sources */,
 				A4B154FA279149000033A614 /* randy_agent.swift in Sources */,

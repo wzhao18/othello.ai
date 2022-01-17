@@ -18,7 +18,7 @@ struct OthelloApp: App {
     }
     
     init() {
-        game = OthelloGameManager(dimension: 5)
+        game = OthelloGameManager(dimension: 10)
         let ai_agents = [AlphabetaAgent(agent_id: 0, game: game, timeout: 5.0), RandyAgent(agent_id: 1, game: game)]
         for ai_agent in ai_agents {
             ai_agent.start()
